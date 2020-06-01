@@ -49,7 +49,7 @@ function extend_line(){
 }
 
 
-//======================= On Mouse Click Functions===========================
+//========================= On Mouse Click Functions===========================
 function click_add(){       //addinng points
     let tooClose = false;
     if (mouseX > 0 && mouseX < 590 && mouseY > 0 && mouseY < 600){
@@ -85,6 +85,11 @@ function click_line(){      //making query
 
 //==================================== DEMO ====================================
 
+function show_query() {
+  stroke('red');
+  draw_lines(query);
+  noStroke();
+}
 
 //draws all of the hulls on left screen
 function show_hulls(){      
@@ -135,7 +140,37 @@ function show_cascade_lst(){
   }
 }
 
+function show_query_in_lst(layer, pos){
+  let u = [(pos * BOXSIZE)+DIMEN+100   , layer * (BOXSIZE*2) + 100];
+  let b = [u[0]                      , u[1] + BOXSIZE];
+  //console.log(layer + " , " + pos);
 
+  let v0 = createVector(u[0], u[1] - BOXSIZE + 10);
+  let v1 = createVector(0, BOXSIZE -20);
+  drawArrow(v0,v1,'red');
+  stroke('red');
+  line(u[0], u[1], b[0], b[1]);
+  noStroke();
+}
 
+function drawArrow(base, vec, myColor) {
+  push();
+  stroke(myColor);
+  strokeWeight(3);
+  fill(myColor);
+  translate(base.x, base.y);
+  line(0, 0, vec.x, vec.y);
+  rotate(vec.heading());
+  let arrowSize = 7;
+  translate(vec.mag() - arrowSize, 0);
+  triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+  pop();
+}
+
+function draw_tan_line(){
+  stroke('red');
+  line(tanline.pt1.x, tanline.pt1.y, tanline.pt2.x, tanline.pt2.y);
+  noStroke();
+}
 
 //==============================================================================

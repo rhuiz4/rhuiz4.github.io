@@ -19,7 +19,9 @@ function Point(x,y){
 
 function draw_points(data){
     for (let i = 0; i < data.length; i++){
+      PT_SIZE -= 1;     //points appear bigger here for some reason
       data[i].show();
+      PT_SIZE += 1;
     }
   }
   

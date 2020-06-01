@@ -79,7 +79,7 @@ function home_buttons(){
 }
 
 function inc_step(){
-  step++;
+  if (step < 5) step++;
 }
 
 function dec_step(){
@@ -93,24 +93,29 @@ function rehull(){
   
 function add_pt(){
   MODE = 'ADD';
+  DIRECTIONS = 'Click on the left panel to add points.'
 }
 
 function add_line(){
   MODE = 'LINE';
+  DIRECTIONS = 'Click in 2 different places on the left panel to add line.';
   query = [];
 }
 
 function del_pt(){
   MODE = 'DELETE';
+  DIRECTIONS = 'Click on any points in the left panel to remove it.'
 }
 
 function done() {
   MODE = 'DEMO';
+  DIRECTIONS = '';
   demo_buttons();
 }
 
 function reset(){
   MODE = 'NONE';
+  DIRECTIONS = '';
   data = [];
   query = [];
   hulls = [];
@@ -119,6 +124,7 @@ function reset(){
   stepsText.html("<br>");
   step = 0;
   home_buttons();
+  tanLineFound = 0;
 }
 
 function printpts(){
@@ -177,6 +183,6 @@ function fillpts(){
 // data.push(new Point(80,383));
 // data.push(new Point(546,431));
 
-  query.push(new Point(0,DIMEN / 2));
-  query.push(new Point(DIMEN-5,DIMEN / 2));
+  query.push(new Point(0,DIMEN / 2 - 40));
+  query.push(new Point(DIMEN-5,DIMEN / 2 + 10));
 }

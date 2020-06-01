@@ -3,8 +3,8 @@ let BOXSIZE = 40;
 function Edge(p1, p2, layer, R, G, B){
     this.pt1 = p1;
     this.pt2 = p2;
-    this.angle = Math.floor(-1 * get_angle(p1, p2));
-    if (this.angle < 0){
+    this.angle = (-1 * get_angle(p1, p2));
+    if (this.angle <= 0){
         this.angle += 360;
     }
 
@@ -20,7 +20,7 @@ function Edge(p1, p2, layer, R, G, B){
     }
 
     this.show = function(){
-        stroke(hullColorR[this.layer],hullColorG[this.layer],hullColorB[this.layer]);
+        stroke(this.R, this.G, this.B);
         line(this.pt1.x,this.pt1.y,this.pt2.x,this.pt2.y);
         noStroke();
         this.pt1.show();
@@ -46,7 +46,7 @@ function Edge(p1, p2, layer, R, G, B){
         line(bl[0], bl[1], br[0], br[1]);
         line(ur[0], ur[1], br[0], br[1]);
 
-        text(this.angle, ul[0]+BOXSIZE/2 - 10, ul[1]+BOXSIZE/2 + 5);
+        text(Math.floor(this.angle), ul[0]+BOXSIZE/2 - 10, ul[1]+BOXSIZE/2 + 5);
 
         //Shows line going down the cascadinng lists
         if (this.down){
