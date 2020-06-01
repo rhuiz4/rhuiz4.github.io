@@ -42,7 +42,7 @@ function mode_actions(){
 function extend_line(){
     let slope = (query[0].y - query[1].y) / (query[0].x - query[1].x);
     let y1 = query[0].y - (query[0].x * slope);
-    let y2 = slope * DIMEN-5 + y1;
+    let y2 = slope * (DIMEN-5) + y1;
     query = [];
     query.push(new Point(0, y1));
     query.push(new Point(DIMEN-5, y2));

@@ -98,7 +98,7 @@ function add_pt(){
 
 function add_line(){
   MODE = 'LINE';
-  DIRECTIONS = 'Click in 2 different places on the left panel to add line.';
+  DIRECTIONS = 'Click in 2 different places on the left panel to add a sline.';
   query = [];
 }
 

@@ -62,7 +62,7 @@ function set_tan_line(level){
     let slope = (query[0].y - query[1].y) / (query[0].x - query[1].x);
     
     let y1 = tanpt.y - (tanpt.x * slope);
-    let y2 = slope * DIMEN-5 + y1;
+    let y2 = slope * (DIMEN-5) + y1;
 
     //console.log(slope);
     let slope2 = (y2-y1) / (DIMEN-5)
