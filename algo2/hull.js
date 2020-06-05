@@ -2,7 +2,7 @@
 
 function make_hull(lst){
     let curr_hull = [];
-    if (lst.length <= 3){       //less than 3 points left = all 3 points in hull
+    if (lst.length < 3){       //less than 3 points left = all points in hull
         for (let i = 0; i < lst.length; i++){
             curr_hull.push(lst[i]);
         }

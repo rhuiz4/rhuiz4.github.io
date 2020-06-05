@@ -92,7 +92,7 @@ function show_query() {
 }
 
 //draws all of the hulls on left screen
-function show_hulls(){      
+function show_hulls(hulls){      
   for (let i = 0; i < hulls.length; i++) {
     stroke(hullColorR[i], hullColorG[i], hullColorB[i]);
     for (let j = 0; j < hulls[i].length;j++) {
@@ -128,7 +128,7 @@ function show_Uhulls_lst(){
 
 
 //shows cascading listss on right screen
-function show_cascade_lst(){
+function show_cascade_lst(cascadeLst){
   for (let i = 0; i < cascadeLst.length; i++){
 
     stroke(hullColorR[i],hullColorG[i],hullColorB[i]);
@@ -167,9 +167,39 @@ function drawArrow(base, vec, myColor) {
   pop();
 }
 
-function draw_tan_line(){
+function draw_tan_line(tanline){
   stroke('red');
   line(tanline.pt1.x, tanline.pt1.y, tanline.pt2.x, tanline.pt2.y);
+  noStroke();
+}
+
+function box_edge(edge, level){
+
+  if (!edge) {
+    let pos = cascadeLst[level].length;
+    let ul = [(pos * BOXSIZE)+DIMEN+100   , level * (BOXSIZE*2) + 100];
+    let bl = [ul[0]                       , ul[1] + BOXSIZE];
+
+    stroke('red');
+    line(ul[0], ul[1], bl[0], bl[1]);
+    noStroke();
+    return;
+  }
+  stroke(255,0,0);
+
+  let pos = cascadeLst[edge.layer].indexOf(edge);
+
+  let ul = [(pos * BOXSIZE)+DIMEN+100   , edge.layer * (BOXSIZE*2) + 100];
+  let ur = [ul[0] + BOXSIZE            , ul[1]];
+  let bl = [ul[0]                      , ul[1] + BOXSIZE];
+  let br = [ur[0]                      , bl[1]];
+
+  //Draws the boxes
+  line(ul[0], ul[1], ur[0], ur[1]);
+  line(ul[0], ul[1], bl[0], bl[1]);
+  line(bl[0], bl[1], br[0], br[1]);
+  line(ur[0], ur[1], br[0], br[1]);
+
   noStroke();
 }
 

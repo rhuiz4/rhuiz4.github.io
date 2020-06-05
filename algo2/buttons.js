@@ -79,7 +79,7 @@ function home_buttons(){
 }
 
 function inc_step(){
-  if (step < 5) step++;
+  if (step < MAXSTEP) step++;
 }
 
 function dec_step(){
@@ -98,7 +98,7 @@ function add_pt(){
 
 function add_line(){
   MODE = 'LINE';
-  DIRECTIONS = 'Click in 2 different places on the left panel to add a sline.';
+  DIRECTIONS = 'Click in 2 different places on the left panel to add a line.';
   query = [];
 }
 
@@ -125,6 +125,7 @@ function reset(){
   step = 0;
   home_buttons();
   tanLineFound = 0;
+  scenes = [];
 }
 
 function printpts(){
@@ -171,6 +172,7 @@ function fillpts(){
   data.push(new Point(239,267));
   data.push(new Point(257,315));
   data.push(new Point(367,262));
+
 
 //   data.push(new Point(437,380));
 // data.push(new Point(178,340));

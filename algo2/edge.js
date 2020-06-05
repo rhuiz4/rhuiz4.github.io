@@ -79,16 +79,14 @@ function upperhull_edges(lst, index) {
     let minX = minmax[0];
     let maxX = minmax[1];
     let i = maxX;
-
+    
     while(i != minX){
         let ind1 = i;
         let ind2 = i+1;
         if (i == lst.length-2) {
             ind2 = 0;
         }
-        // console.log("(" + ind1 + "," + ind2 + ")");
-        // lst[ind1].show();
-        // lst[ind2].show();
+
         edge_lst.push (new Edge(lst[ind1], lst[ind2], index, hullColorR[index],hullColorG[index],hullColorB[index]));
         edge_lst[edge_lst.length-1].show();
         if (i == lst.length-2){
@@ -106,11 +104,11 @@ function min_max_X(lst) {
     let maxX_ind = 0;
 
     for (let i = 1; i < lst.length; i++) {
-        if ((lst[i].x < lst[minX_ind].x) || (lst[i].x == lst[minX_ind].x && lst[i].y < lst[minX_ind].y)){
+        if ((lst[i].x < lst[minX_ind].x) || (lst[i].x == lst[minX_ind].x && lst[i].y > lst[minX_ind].y)){
             minX_ind = i;
         }
 
-        if ((lst[i].x > lst[maxX_ind].x) || (lst[i].x == lst[maxX_ind].x && lst[i].y < lst[maxX_ind].y)){
+        if ((lst[i].x > lst[maxX_ind].x) || (lst[i].x == lst[maxX_ind].x && lst[i].y > lst[maxX_ind].y)){
             maxX_ind = i;
         }
     }

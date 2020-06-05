@@ -6,6 +6,8 @@ function Point(x,y){
     this.G = 0;
     this.B = 0;
 
+    this.mark = 0;
+
     this.show = function(){
       fill(this.R, this.G, this.B);
       ellipse(this.x, this.y, PT_SIZE, PT_SIZE);
@@ -21,6 +23,7 @@ function draw_points(data){
     for (let i = 0; i < data.length; i++){
       PT_SIZE -= 1;     //points appear bigger here for some reason
       data[i].show();
+      //text(i, data[i].x, data[i].y);
       PT_SIZE += 1;
     }
   }
