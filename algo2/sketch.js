@@ -140,10 +140,18 @@ function draw() {
 
       scenes.push(new Scene("Binary search to find the position the query line would be in the top level list. If the edge in that position is not an edge of the top level hull, we move the position to the next edge on the top level hull.", 1,0,0,1,1));
       
-      for (let i = 0; i < cascadeLst.length; i++){
-        set_tan_line(i);
-        scenes.push(new Scene("If we draw the query line such that it passes that point, we get a tangent line to the outer hull with the same slope as the query line.", 1,0,0,1,1,0,1));
+      set_tan_line(0);
+      scenes.push(new Scene("If we draw the query line such that it passes that point, we get a tangent line to the outer hull with the same slope as the query line.", 1,0,0,1,1,0,1));
+      
+      if (check_above(tanpt)){
+        let pt_ind = hulls.indexOf(tanpt);
+        
       }
+
+      // for (let i = 0; i < cascadeLst.length; i++){
+      //   set_tan_line(i);
+      //   scenes.push(new Scene("If we draw the query line such that it passes that point, we get a tangent line to the outer hull with the same slope as the query line.", 1,0,0,1,1,0,1));
+      // }
     }
 
 
