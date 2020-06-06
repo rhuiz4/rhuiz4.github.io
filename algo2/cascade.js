@@ -157,27 +157,39 @@ function set_tan_line(level){
 
         let prev_ind;
 
-        if (curr_edge) {prev_ind = cascadeLst[level].indexOf(curr_edge) - 1;}
-        else {prev_ind = cascadeLst[level].length-1;}
+        if (curr_edge) {
+            prev_ind = cascadeLst[level].indexOf(curr_edge) - 1;
+        }
+        else {
+            prev_ind = cascadeLst[level].length-1;
+        }
 
-        nextScene = new Scene("We can then compare the slope of the edge before that edge with the slope of the query.", 1,0,0,1,1,1);
-        nextScene.currLevel = level;
-        nextScene.next = cascadeLst[level][prev_ind];
-        scenes.push(nextScene);
-
-        //if the edge before is steeper, move curr edge to it.
-        if ( cascadeLst[level][prev_ind].angle >= qline.angle ){
-            curr_edge = cascadeLst[level][prev_ind];
-            nextScene = new Scene("Since the edge before has a steeper slope than the query, we know that the tangent point would be before that edge, so we move to that edge.", 1,0,0,1,1);
+        if (prev_ind == -1){
+            nextScene = new Scene("Since this is the first edge on this level, we don't need to compare the slope of the edge before that edge with the slope of the query.", 1,0,0,1,1);
             nextScene.currLevel = level;
             scenes.push(nextScene);
         }
 
-        //if query line is steeper, stay at curr edge
-        else{
-            nextScene = new Scene("Since the query is steeper, we stay at this edge.", 1,0,0,1,1);
+        else {
+            nextScene = new Scene("We can then compare the slope of the edge before that edge with the slope of the query.", 1,0,0,1,1,1);
             nextScene.currLevel = level;
+            nextScene.next = cascadeLst[level][prev_ind];
             scenes.push(nextScene);
+
+            //if the edge before is steeper, move curr edge to it.
+            if ( cascadeLst[level][prev_ind].angle >= qline.angle ){
+                curr_edge = cascadeLst[level][prev_ind];
+                nextScene = new Scene("Since the edge before has a steeper slope than the query, we know that the tangent point would be before that edge, so we move to that edge.", 1,0,0,1,1);
+                nextScene.currLevel = level;
+                scenes.push(nextScene);
+            }
+
+            //if query line is steeper, stay at curr edge
+            else{
+                nextScene = new Scene("Since the query is steeper, we stay at this edge.", 1,0,0,1,1);
+                nextScene.currLevel = level;
+                scenes.push(nextScene);
+            }
         }
         
                                                 //--- FINDING TAN PT ---

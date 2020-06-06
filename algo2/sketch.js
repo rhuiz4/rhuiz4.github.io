@@ -258,7 +258,7 @@ function draw() {
     MAXSTEP = scenes.length-1;
 
     scenes[step].display();
-
+    
     if (step == MAXSTEP){
       incStep.hide();
       doneButton.show();
