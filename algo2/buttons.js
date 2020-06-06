@@ -31,7 +31,7 @@ function make_buttons(){
   fillButton.size(100, 35);
 
   demoButton = createButton("Start Demo");
-  demoButton.mousePressed(done);
+  demoButton.mousePressed(demoStart);
   demoButton.position(buttonX + 5*buttonSpace + 50, buttonY);
   demoButton.size(100, 35);
 
@@ -53,7 +53,45 @@ function make_buttons(){
   incStep.mousePressed(inc_step);
   incStep.position(buttonX + 2*buttonSpace + 400, buttonY);
   incStep.size(100, 35);
+
+  doneButton = createButton("Done");
+  doneButton.mousePressed(done);
+  doneButton.position(buttonX + 2*buttonSpace + 400, buttonY);
+  doneButton.size(100, 35);
+
+  lastButton = createButton("Go to End");
+  lastButton.mousePressed(lastStep);
+  lastButton.position(buttonX + buttonSpace, buttonY);
+  lastButton.size(100, 35);
   
+}
+
+function lastStep(){
+  step = MAXSTEP;
+}
+
+function done(){
+  MODE = 'NONE';
+  DIRECTIONS = '';
+  hulls = [];
+  Uhulls = [];
+  cascadeLst = [];
+  stepsText.html("<br>");
+  step = 0;
+  home_buttons();
+  tanLineFound = 0;
+  scenes = [];
+
+  aboveQuery = false;
+  belowQuery = false; 
+  report_lst = [];
+
+  for (let i = 0; i < data.length; i++){
+    data[i].R = 0;
+    data[i].B = 0;
+    data[i].G = 0;
+    data[i].isAbove = false;
+  }
 }
 
 function demo_buttons(){
@@ -62,7 +100,9 @@ function demo_buttons(){
   delButton.hide();
   demoButton.hide();
   fillButton.hide();
-
+  
+  doneButton.hide();
+  lastButton.show();
   incStep.show();
   decStep.show();
 }
@@ -74,6 +114,8 @@ function home_buttons(){
   demoButton.show();
   fillButton.show();
 
+  doneButton.hide();
+  lastButton.hide();
   incStep.hide();
   decStep.hide();
 }
@@ -107,7 +149,7 @@ function del_pt(){
   DIRECTIONS = 'Click on any points in the left panel to remove it.'
 }
 
-function done() {
+function demoStart() {
   MODE = 'DEMO';
   DIRECTIONS = '';
   demo_buttons();
@@ -126,6 +168,10 @@ function reset(){
   home_buttons();
   tanLineFound = 0;
   scenes = [];
+
+  aboveQuery = false;
+  belowQuery = false; 
+  report_lst = [];
 }
 
 function printpts(){

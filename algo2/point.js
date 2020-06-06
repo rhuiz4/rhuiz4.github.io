@@ -6,25 +6,41 @@ function Point(x,y){
     this.G = 0;
     this.B = 0;
 
-    this.mark = 0;
+    this.isAbove = false;
 
     this.show = function(){
       fill(this.R, this.G, this.B);
+      stroke(this.R, this.G, this.B);
       ellipse(this.x, this.y, PT_SIZE, PT_SIZE);
+      noStroke();
+      fill(0);
+    }
+
+    this.show_black = function(){
+      fill(0);
+      stroke(0);
+      ellipse(this.x, this.y, PT_SIZE, PT_SIZE);
+      noStroke();
       fill(0);
     }
 
     this.print = function(){
       console.log("(" + this.x + "," + this.y + ")");
     }
+
+    this.mark = function(){
+      this.isAbove = true;
+      report_lst.push(this);
+      //this.print();
+    }
 }
 
 function draw_points(data){
     for (let i = 0; i < data.length; i++){
-      PT_SIZE -= 1;     //points appear bigger here for some reason
+      
       data[i].show();
       //text(i, data[i].x, data[i].y);
-      PT_SIZE += 1;
+      
     }
   }
   

@@ -225,7 +225,7 @@ function set_tan_line(level){
 
 function check_above(pt){
     let slope = (query[0].y - query[1].y) / (query[0].x - query[1].x);
-    let b = query[0][1];
+    let b = query[0].y;
     let query_y = slope*pt.x + b;
-    return query_y < pt.y;
+    return query_y > pt.y;
 }

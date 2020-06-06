@@ -1,3 +1,4 @@
+
 let data = [];
 let query = [];
 let hulls = [];
@@ -33,6 +34,12 @@ let scenes = [];
 let MAXSTEP = 6;
 
 let tanLineFound = 0;
+
+
+//for if an entire hull is above or below query
+let aboveQuery = false;
+let belowQuery = false;
+let report_lst = [];
 
 
 
@@ -74,7 +81,7 @@ function draw() {
 
   fill(255);
   
-  if (step < MAXSTEP)  show_query();
+  if (step <= MAXSTEP)  show_query();
 
    //shows data points
   //  draw_points(data);
@@ -94,6 +101,14 @@ function draw() {
       let tmp_data = [...data];
       while (tmp_data.length > 0){
         hulls.push(make_hull(tmp_data));
+      }
+
+      for (let i = 0; i < hulls.length; i++) {
+        for (let j = 0; j < hulls[i].length;j++) {
+          hulls[i][j].R = hullColorR[i];
+          hulls[i][j].G = hullColorG[i];
+          hulls[i][j].B = hullColorB[i];
+        }
       }
 
       scenes.push(new Scene("Create layered convex hulls.", 1));
@@ -140,24 +155,117 @@ function draw() {
 
       scenes.push(new Scene("Binary search to find the position the query line would be in the top level list. If the edge in that position is not an edge of the top level hull, we move the position to the next edge on the top level hull.", 1,0,0,1,1));
       
-      set_tan_line(0);
-      scenes.push(new Scene("If we draw the query line such that it passes that point, we get a tangent line to the outer hull with the same slope as the query line.", 1,0,0,1,1,0,1));
-      
-      if (check_above(tanpt)){
-        let pt_ind = hulls.indexOf(tanpt);
+      for (let i = 0; i < cascadeLst.length; i++){
+        if ((!aboveQuery) && (!belowQuery)){
+          set_tan_line(i);
+  
+          scenes.push(new Scene("If we draw the query line such that it passes that point, we get a tangent line to the outer hull with the same slope as the query line.", 1,0,0,1,1,0,1));
+          
+          if (check_above(tanpt)){
+            let tanInd = hulls[i].indexOf(tanpt);
+            tanpt.mark();
+            scenes.push(new Scene("This point is above the query line, so we mark it, and continue to the left and right points of the hull.", 1,0,0,1,1));
+          
+            let indL = tanInd+1;
+            let indR = tanInd-1;
+            let Lcont = true;
+            let Rcont = true;
+            while (Lcont || Rcont){
+              if (indR < 0) indR = hulls[i].length-2;
+              if (indL == hulls[i].length-1) indL = 0;
+
+              let currL = hulls[i][indL];
+              let currR = hulls[i][indR];
+          
+              if (Lcont && Rcont){
+                if (currL.isAbove){
+                  aboveQuery = true;
+                  Lcont = false;
+                  Rcont = false;
+                }
+                else if (check_above(currL) && check_above(currR)){
+                  currL.mark();
+                  if (!currR.isAbove) currR.mark();
+                  scenes.push(new Scene("Both of the points are above the query, so we update them and move to the next points for both.", 1,0,0,1,1));
+                }
+                else if (check_above(currL)){
+                  currL.mark();
+                  Rcont = false;
+                  scenes.push(new Scene("Only the left point is above the query, so we mark that point and continue only on the left.", 1,0,0,1,1));
+                }
+                else if (check_above(currR)){
+                  currR.mark();
+                  Lcont = false;
+                  scenes.push(new Scene("Only the right point is above the query, so we mark that point and continue only on the right.", 1,0,0,1,1));
+                }
+                else{
+                  Lcont = false;
+                  Rcont = false;
+                  scenes.push(new Scene("Both points are below the query, so we stop.", 1,0,0,1,1));
+                }
+              }
+              else if (Lcont){
+                if (check_above(currL)){
+                  currL.mark();
+                  scenes.push(new Scene("The left point is above the query, so we mark that point and continue on the left.", 1,0,0,1,1));
+                }
+                else{
+                  Lcont = false;
+                  scenes.push(new Scene("The left point is below the query, so we stop.", 1,0,0,1,1));
+                }
+              }
+              else{ //Rcont is true
+                if (check_above(currR)){
+                  currR.mark();
+                  scenes.push(new Scene("The right point is above the query, so we mark that point and continue on the right.", 1,0,0,1,1));
+                }
+                else{
+                  Rcont = false;
+                  scenes.push(new Scene("The right point is below the query, so we stop.", 1,0,0,1,1));
+                }
+              }
+
+              indR--;
+              indL++;
         
+            }
+          }
+
+          else{
+            belowQuery = true;
+          }
+        }
+        else if (aboveQuery){
+          for (let j = 0; j < hulls[i].length-1; j++){
+            hulls[i][j].mark();
+          }
+        }
+      }//ends tan pt and marking
+
+      if (aboveQuery){
+        scenes.push(new Scene("Since all the points in the convex hull is marked, we know that all the points inside the hull is also above the query, so we can mark all of them.", 1,0,0,1,1));
       }
+      else if (belowQuery) {
+        scenes.push(new Scene("Since the tangent point is below the query, we know that all the points in the hull is below the query, so we can stop.", 1,0,0,1,1));
+      }
+      
+      scenes.push(new Scene("We have now marked every point above the query.",0,0,0,0,0,0,0,true));
 
-      // for (let i = 0; i < cascadeLst.length; i++){
-      //   set_tan_line(i);
-      //   scenes.push(new Scene("If we draw the query line such that it passes that point, we get a tangent line to the outer hull with the same slope as the query line.", 1,0,0,1,1,0,1));
-      // }
+
+    }//ends pre-processinng
+
+
+    MAXSTEP = scenes.length-1;
+
+    scenes[step].display();
+
+    if (step == MAXSTEP){
+      incStep.hide();
+      doneButton.show();
     }
-
-
-    MAXSTEP = scenes.length;
-    if (step < MAXSTEP){
-      scenes[step].display();
+    else{
+      incStep.show();
+      doneButton.hide();
     }
 
   }

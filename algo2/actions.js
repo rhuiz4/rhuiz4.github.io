@@ -95,11 +95,6 @@ function show_query() {
 function show_hulls(hulls){      
   for (let i = 0; i < hulls.length; i++) {
     stroke(hullColorR[i], hullColorG[i], hullColorB[i]);
-    for (let j = 0; j < hulls[i].length;j++) {
-      hulls[i][j].R = hullColorR[i];
-      hulls[i][j].G = hullColorG[i];
-      hulls[i][j].B = hullColorB[i];
-    }
     draw_lines(hulls[i]);
     draw_points(hulls[i]);
     noStroke();
@@ -143,7 +138,6 @@ function show_cascade_lst(cascadeLst){
 function show_query_in_lst(layer, pos){
   let u = [(pos * BOXSIZE)+DIMEN+100   , layer * (BOXSIZE*2) + 100];
   let b = [u[0]                      , u[1] + BOXSIZE];
-  //console.log(layer + " , " + pos);
 
   let v0 = createVector(u[0], u[1] - BOXSIZE + 10);
   let v1 = createVector(0, BOXSIZE -20);
@@ -201,6 +195,16 @@ function box_edge(edge, level){
   line(ur[0], ur[1], br[0], br[1]);
 
   noStroke();
+}
+
+function show_report_lst(lst){
+  stroke('red');
+  fill('red');
+  for (let i = 0; i < lst.length; i++){
+    ellipse(lst[i].x, lst[i].y, PT_SIZE, PT_SIZE);
+  }
+  noStroke();
+  fill(0);
 }
 
 //==============================================================================
