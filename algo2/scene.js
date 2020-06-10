@@ -14,6 +14,7 @@ function Scene(desc, h = 0, uh = 0, uhl = 0, c = 0, e=0, n=0, t=0, end = false){
     this.end = end;
 
     this.repLst = [...report_lst];
+    this.arrows = [];
 
 
     //variables to decide what to display
@@ -46,6 +47,11 @@ function Scene(desc, h = 0, uh = 0, uhl = 0, c = 0, e=0, n=0, t=0, end = false){
             if (this.disNext) box_edge(this.next, this.currLevel);
             if (this.disTan) draw_tan_line(this.tanLine);
             if (this.repLst.length) show_report_lst(this.repLst);
+
+            for (let i = 0; i < this.arrows.length; i++) {
+                drawArrow(this.arrows[i][0], this.arrows[i][1],'red');
+            }
+
         }
     }
 

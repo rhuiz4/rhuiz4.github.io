@@ -44,6 +44,10 @@ function find_ind(lst, edge){
     let i = 0;
     //console.log(edge.angle + " " + lst[0].angle);
 
+    if (lst.length == 0){
+        return 0;
+    }
+
     while(edge.angle >= lst[i].angle) {
 
         if(i+1 == lst.length) {
@@ -72,8 +76,13 @@ function set_tan_line(level){
     //     tanpt=cascadeLst[level][query_ind].pt1;
     // }
 
+    if (Uhulls[level].length == 0){
+        tanpt = hulls[level][0];
+        scenes.push(new Scene("Since there is no edge onn this level (only a point), we can use that point as the tangent point.", 1,0,0,1,1));
+    }
+
     //first layer
-    if (level == 0){
+    else if (level == 0){
 
         //curr edge is at the end of the list in the curr level
         if (!curr_edge){

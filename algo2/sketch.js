@@ -164,8 +164,25 @@ function draw() {
           if (check_above(tanpt)){
             let tanInd = hulls[i].indexOf(tanpt);
             tanpt.mark();
-            scenes.push(new Scene("This point is above the query line, so we mark it, and continue to the left and right points of the hull.", 1,0,0,1,1));
-          
+
+            let nextL = tanInd+1;
+            let nextR = tanInd-1;
+
+            if (nextR < 0) nextR = hulls[i].length-2;
+            if (nextL >= hulls[i].length-1) nextL = 0;
+
+            let nextScene = new Scene("This point is above the query line, so we mark it, and continue to the left and right points of the hull.", 1,0,0,1,1);
+            
+            let v0 = createVector(hulls[i][nextL].x - 30, hulls[i][nextL].y);
+            let v1 = createVector(20, 0);
+            nextScene.arrows.push([v0,v1]);
+
+            v0 = createVector(hulls[i][nextR].x + 30, hulls[i][nextR].y);
+            v1 = createVector(-20, 0);
+            nextScene.arrows.push([v0,v1]);
+
+            scenes.push(nextScene);
+
             let indL = tanInd+1;
             let indR = tanInd-1;
             let Lcont = true;
@@ -176,6 +193,12 @@ function draw() {
 
               let currL = hulls[i][indL];
               let currR = hulls[i][indR];
+
+              nextL = indL+1;
+              nextR = indR-1;
+
+              if (nextR < 0) nextR = hulls[i].length-2;
+              if (nextL >= hulls[i].length-1) nextL = 0;
           
               if (Lcont && Rcont){
                 if (currL.isAbove){
@@ -186,17 +209,42 @@ function draw() {
                 else if (check_above(currL) && check_above(currR)){
                   currL.mark();
                   if (!currR.isAbove) currR.mark();
-                  scenes.push(new Scene("Both of the points are above the query, so we update them and move to the next points for both.", 1,0,0,1,1));
+                  nextScene = new Scene("Both of the points are above the query, so we update them and move to the next points for both.", 1,0,0,1,1);
+
+                  v0 = createVector(hulls[i][nextL].x - 30, hulls[i][nextL].y);
+                  v1 = createVector(20, 0);
+                  nextScene.arrows.push([v0,v1]);
+
+                  v0 = createVector(hulls[i][nextR].x + 30, hulls[i][nextR].y);
+                  v1 = createVector(-20, 0);
+                  nextScene.arrows.push([v0,v1]);
+
+                  scenes.push(nextScene);
+
                 }
                 else if (check_above(currL)){
                   currL.mark();
                   Rcont = false;
-                  scenes.push(new Scene("Only the left point is above the query, so we mark that point and continue only on the left.", 1,0,0,1,1));
+                  nextScene = (new Scene("Only the left point is above the query, so we mark that point and continue only on the left.", 1,0,0,1,1));
+                
+                  v0 = createVector(hulls[i][nextL].x - 30, hulls[i][nextL].y);
+                  v1 = createVector(20, 0);
+                  nextScene.arrows.push([v0,v1]);
+
+                  scenes.push(nextScene);
+                
                 }
                 else if (check_above(currR)){
                   currR.mark();
                   Lcont = false;
-                  scenes.push(new Scene("Only the right point is above the query, so we mark that point and continue only on the right.", 1,0,0,1,1));
+                  nextScene = (new Scene("Only the right point is above the query, so we mark that point and continue only on the right.", 1,0,0,1,1));
+                
+                  v0 = createVector(hulls[i][nextR].x + 30, hulls[i][nextR].y);
+                  v1 = createVector(-20, 0);
+                  nextScene.arrows.push([v0,v1]);
+
+                  scenes.push(nextScene);
+                
                 }
                 else{
                   Lcont = false;
@@ -207,7 +255,14 @@ function draw() {
               else if (Lcont){
                 if (check_above(currL)){
                   currL.mark();
-                  scenes.push(new Scene("The left point is above the query, so we mark that point and continue on the left.", 1,0,0,1,1));
+                  nextScene = (new Scene("The left point is above the query, so we mark that point and continue on the left.", 1,0,0,1,1));
+                
+                  v0 = createVector(hulls[i][nextL].x - 30, hulls[i][nextL].y);
+                  v1 = createVector(20, 0);
+                  nextScene.arrows.push([v0,v1]);
+
+                  scenes.push(nextScene);
+                
                 }
                 else{
                   Lcont = false;
@@ -217,7 +272,14 @@ function draw() {
               else{ //Rcont is true
                 if (check_above(currR)){
                   currR.mark();
-                  scenes.push(new Scene("The right point is above the query, so we mark that point and continue on the right.", 1,0,0,1,1));
+                  nextScene = (new Scene("The right point is above the query, so we mark that point and continue on the right.", 1,0,0,1,1));
+                
+                  v0 = createVector(hulls[i][nextR].x + 30, hulls[i][nextR].y);
+                  v1 = createVector(-20, 0);
+                  nextScene.arrows.push([v0,v1]);
+
+                  scenes.push(nextScene);
+
                 }
                 else{
                   Rcont = false;
