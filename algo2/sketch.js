@@ -115,6 +115,9 @@ function draw() {
         }
       }
 
+      if (hulls.length > 6) errorText.html("Too many points selected, the demo may not display everything as intended.");
+      else errorText.html("");
+
       scenes.push(new Scene("Create layered convex hulls.", 1));
 
 
@@ -123,9 +126,10 @@ function draw() {
       //create upper hull edges list
       for (let i = 0; i < hulls.length; i++){
         Uhulls.push(upperhull_edges(hulls[i],i));
+        if (Uhulls[i].length > 15) errorText.html("Too many points selected, the demo may not display everything as intended.");
       }
 
-      scenes.push(new Scene("Make lists with each upper hull as a list.", 0,1,1));
+      scenes.push(new Scene("Make sorted lists using the slopes of the edges of each upper hull.", 0,1,1));
 
 
       //=========================== Making Cascading Lists ==========================
@@ -136,7 +140,7 @@ function draw() {
         cascadeLst.unshift(cascade(Uhulls[i-1], cascadeLst[0]));
       }
 
-      scenes.push(new Scene("Add fraction cascading properties to the list.", 0,1,0,1));
+      scenes.push(new Scene("Add fraction cascading properties to the list. Each edge that were promoted from the previous list has a pointer to the next edge originally on the current list, and each edge originally on the current list has a pointer to the next promoted edge. This is not shown in this demo as it get's connfusing.", 0,1,0,1));
 
     
       // for (let i = 0; i < cascadeLst.length; i++){
@@ -151,7 +155,8 @@ function draw() {
       //=========================== Finding Tangent on Outer Hull + Mark Points ==========================
 
       //search for where query line would be in root list. Need to adjust query angle.
-      qline = new Edge(query[0], query[1], 255,0,0);
+      qline = new Edge(query[0], query[1], -1,255,0,0);
+
       if (qline.angle > 180) qline.angle -= 180;
       else if (qline.angle < 180) qline.angle += 180;
       query_ind = find_ind(cascadeLst[0], qline);

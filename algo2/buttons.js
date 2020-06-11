@@ -77,6 +77,7 @@ function done(){
   Uhulls = [];
   cascadeLst = [];
   stepsText.html("<br>");
+  errorText.html("");
   step = 0;
   home_buttons();
   tanLineFound = 0;
@@ -173,6 +174,7 @@ function reset(){
   Uhulls = [];
   cascadeLst = [];
   stepsText.html("<br>");
+  errorText.html("");
   step = 0;
   home_buttons();
   tanLineFound = 0;

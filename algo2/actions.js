@@ -122,8 +122,19 @@ function show_Uhulls_lst(){
 }
 
 
-//shows cascading listss on right screen
+//shows cascading lists on right screen
 function show_cascade_lst(cascadeLst){
+
+  stroke('red');
+  fill('red');
+
+  text("Query: ", DIMEN + 35, (0) * (BOXSIZE*2)+45);
+  qline.show_lst(0);
+
+  noStroke();
+  fill(0);
+  
+
   for (let i = 0; i < cascadeLst.length; i++){
 
     stroke(hullColorR[i],hullColorG[i],hullColorB[i]);
@@ -132,6 +143,8 @@ function show_cascade_lst(cascadeLst){
     text("Level " + i + ":", DIMEN + 35, (i+1) * (BOXSIZE*2)+45);
 
     show_hull_lst(cascadeLst[i]);
+    noStroke();
+    fill(0);
   }
 }
 
@@ -205,6 +218,33 @@ function show_report_lst(lst){
   }
   noStroke();
   fill(0);
+}
+
+function arrow_edge(edge, level){
+  if (!edge) {
+    let pos = cascadeLst[level].length;
+    let u = [(pos * BOXSIZE)+DIMEN+100   , level * (BOXSIZE*2) + 100 - 30];
+    
+    let v0 = createVector(u[0],u[1]);
+    let v1 = createVector(0, BOXSIZE -20);
+
+    //stroke('red');
+    drawArrow(v0,v1,'red');
+    //noStroke();
+    return;
+  }
+  stroke(255,0,0);
+
+  let pos = cascadeLst[edge.layer].indexOf(edge);
+
+  let u = [(pos * BOXSIZE)+DIMEN+100 + BOXSIZE/2   , edge.layer * (BOXSIZE*2) + 100 - 30];
+  
+  let v0 = createVector(u[0],u[1]);
+  let v1 = createVector(0, BOXSIZE -20);
+
+  drawArrow(v0,v1,'red');
+
+  noStroke();
 }
 
 //==============================================================================
