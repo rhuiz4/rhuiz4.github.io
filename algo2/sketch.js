@@ -27,7 +27,7 @@ let DIRECTIONS = '';
 let canvas;
 let modeP;
 
-let textLst = [];
+//let textLst = [];
 let stepsText;
 let step = 0;
 let scenes = [];
@@ -41,13 +41,17 @@ let aboveQuery = false;
 let belowQuery = false;
 let report_lst = [];
 
-
+let errorText;
 
 function setup() {
   modeP = createP('');
   modeP.position(10,0);
   stepsText = createP('<br>');
   stepsText.position(10,700);
+
+  errorText = createP('');
+  errorText.position(750, 40);
+  errorText.style('color','red');
 
   createP('<br>');
   make_buttons();
@@ -56,12 +60,12 @@ function setup() {
   canvas = createCanvas(2*DIMEN + 200,DIMEN);
   canvas.position(10, 90);
 
-  textLst.push("Create layered convex hulls.");
-  textLst.push("Make lists with each upper hull as a list.");
-  textLst.push("Add fraction cascading properties with the list.");
-  textLst.push("Find the position the query line would be in the top level list. If the edge in that position is not an edge of the top level hull, we move the position to the next edge on the top level hull.");
-  textLst.push("If we draw the query line such that it passes the point between those edges on the list on the outer hull, we get a tangent line to the outer hull with the same slope as the query line.");
-  textLst.push("To be continued...");
+  // textLst.push("Create layered convex hulls.");
+  // textLst.push("Make lists with each upper hull as a list.");
+  // textLst.push("Add fraction cascading properties with the list.");
+  // textLst.push("Find the position the query line would be in the top level list. If the edge in that position is not an edge of the top level hull, we move the position to the next edge on the top level hull.");
+  // textLst.push("If we draw the query line such that it passes the point between those edges on the list on the outer hull, we get a tangent line to the outer hull with the same slope as the query line.");
+  // textLst.push("To be continued...");
 
   reset();
   //home_buttons();

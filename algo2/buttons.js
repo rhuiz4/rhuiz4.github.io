@@ -150,9 +150,18 @@ function del_pt(){
 }
 
 function demoStart() {
-  MODE = 'DEMO';
-  DIRECTIONS = '';
-  demo_buttons();
+  if (data.length == 0) {
+    errorText.html("Please enter a data set.")
+  }
+  else if (query.length == 0){
+    errorText.html("Please choose a query line.")
+  }
+  else{
+    errorText.html("");
+    MODE = 'DEMO';
+    DIRECTIONS = '';
+    demo_buttons();
+  }
 }
 
 function reset(){
