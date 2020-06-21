@@ -46,8 +46,10 @@ function Edge(p1, p2, layer, R, G, B){
         line(bl[0], bl[1], br[0], br[1]);
         line(ur[0], ur[1], br[0], br[1]);
 
+        strokeWeight(0);
         text(Math.floor(this.angle), ul[0]+BOXSIZE/2 - 10, ul[1]+BOXSIZE/2 + 5);
-
+        strokeWeight(1);
+        
         //Shows line going down the cascadinng lists
         if (this.down){
             if (cascadeLst[this.layer+1]){

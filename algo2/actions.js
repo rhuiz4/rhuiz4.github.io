@@ -115,7 +115,10 @@ function show_Uhulls_lst(){
     stroke(hullColorR[i],hullColorG[i],hullColorB[i]);
     fill(hullColorR[i],hullColorG[i],hullColorB[i]);
 
+    strokeWeight(0);
+
     text("Level " + i + ":", DIMEN + 35, (i+1) * (BOXSIZE*2)+45);
+    strokeWeight(1);
 
     show_hull_lst(Uhulls[i]);
   }
@@ -125,10 +128,13 @@ function show_Uhulls_lst(){
 //shows cascading lists on right screen
 function show_cascade_lst(cascadeLst){
 
+  strokeWeight(0);
+
   stroke('red');
   fill('red');
 
   text("Query: ", DIMEN + 35, (0) * (BOXSIZE*2)+45);
+  strokeWeight(1);
   qline.show_lst(0);
 
   noStroke();
@@ -139,8 +145,10 @@ function show_cascade_lst(cascadeLst){
 
     stroke(hullColorR[i],hullColorG[i],hullColorB[i]);
     fill(hullColorR[i],hullColorG[i],hullColorB[i]);
+    strokeWeight(0);
 
     text("Level " + i + ":", DIMEN + 35, (i+1) * (BOXSIZE*2)+45);
+    strokeWeight(1);
 
     show_hull_lst(cascadeLst[i]);
     noStroke();
@@ -206,6 +214,9 @@ function box_edge(edge, level){
   line(ul[0], ul[1], bl[0], bl[1]);
   line(bl[0], bl[1], br[0], br[1]);
   line(ur[0], ur[1], br[0], br[1]);
+
+  //stroke('red');
+  line(edge.pt1.x, edge.pt1.y, edge.pt2.x, edge.pt2.y);
 
   noStroke();
 }
