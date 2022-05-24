@@ -1,0 +1,105 @@
+
+.playBtn {
+  top: 50%;
+  left: 50%;
+  font-size: 2.5rem;
+  color: #fff;
+  background-color: rgb(17, 0, 255);
+  border-radius: 50%;
+  width: 20rem;
+  height: 10rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.playBtn:hover {
+  background-color: rgb(255, 0, 0);
+  color: #000;
+  transition: all 0.3s ease-in-out;
+}
+
+body {
+    text-align: center;
+    background-color: rgb(0, 177, 148);
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    /* border: 3px solid rgb(255, 0, 0);
+    background:rgb(0, 200, 255); */
+}
+
+.start {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+}
+
+.start input {
+    font-size: 2.5rem;
+}
+
+.start label {
+    font-size: 2.5rem;
+}
+
+.game {
+    font-size: 2.5rem;
+}
+
+/* Card for a blackjack game */
+card {
+    position: relative;
+    display: inline-block;
+    width: 10rem;
+    height: 15rem;
+    margin: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow:rgb(0, 0, 0) 5px 5px 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+card:hover {
+    box-shadow: none;
+    background-color: rgb(245, 255, 171);
+    transition: all 0.3s ease-in-out;
+}
+
+.hidden {
+    background-color: rgb(0, 33, 118);
+}
+
+.hidden:hover {
+    box-shadow: none;
+    background-color: rgb(32, 115, 209);
+}
+
+
+/* Hit, stand, and reset buttons */
+.game button {
+    position: relative;
+    display: inline-block;
+    width: 10rem;
+    height: 5rem;
+    margin: 1rem;
+    font-size: 1.5rem;
+    background-color: aqua;
+    box-shadow:rgb(197, 2, 2) 5px 5px 5px;
+    border-radius: 40%;
+    transition: all 0.3s ease-in-out;
+}
+
+.game button:hover {
+    box-shadow: none;
+    background-color: rgb(0, 119, 255);
+}
